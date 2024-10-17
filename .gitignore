@@ -1,0 +1,31 @@
+# Dependency directories
+node_modules/
+.venv/
+
+# Build output
+build/
+dist/
+
+# Temporary files
+*.log
+*.env
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python files
+__pycache__/
+*.pyc
+
+# Uploaded files and transcripts
+backend/uploads/
+backend/transcripts/
+
+# VSCode and IDE settings
+.vscode/
+.idea/
+
+# Ignore lock files
+package-lock.json
+yarn.lock

@@ -1,0 +1,98 @@
+/* General Styles */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.app-header h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.5rem;
+}
+
+.upload-card {
+  background: #f0f0f0;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.upload-card h2 {
+  margin-top: 0;
+}
+
+input[type="file"],
+select {
+  display: block;
+  margin: 10px 0;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.status-message {
+  margin-top: 15px;
+  font-style: italic;
+}
+
+/* Result Section */
+.result-section {
+  margin-top: 30px;
+}
+
+.quiz-section {
+  margin: 10px 0;
+}
+
+.genzified-section {
+  margin-top: 20px;
+  background-color: #e8f5e9;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 10px;
+  }
+
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  input[type="text"],
+  select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header h1 {
+    font-size: 1.5rem;
+  }
+}
