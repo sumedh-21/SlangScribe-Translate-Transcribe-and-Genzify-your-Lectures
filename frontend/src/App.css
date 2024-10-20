@@ -10,18 +10,29 @@
   text-align: center;
   margin-bottom: 30px;
   font-size: 2.5rem;
+  color: #bfacb5; /* Rose quartz */
 }
 
 .upload-card {
-  background: #f0f0f0;
+  background-color: #7f7b82; /* Taupe gray */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.upload-card:hover {
+  transform: scale(1.05);
 }
 
 .upload-card h2 {
   margin-top: 0;
+  color: #ede4dd;
 }
 
 input[type="file"],
@@ -29,34 +40,45 @@ select {
   display: block;
   margin: 10px 0;
   width: 100%;
+  max-width: 500px;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  background-color: #444554; /* Charcoal */
+  color: white;
 }
 
 button {
   display: block;
   margin-top: 10px;
-  padding: 10px;
+  padding: 10px 20px;
   background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 button:hover {
   background-color: #45a049;
+  transform: translateY(-3px);
 }
 
 .status-message {
   margin-top: 15px;
   font-style: italic;
+  color: #ede4dd; /* Pale Dogwood */
 }
 
 /* Result Section */
 .result-section {
   margin-top: 30px;
+  background-color: #172121; /* Eerie black */
+  color: #ede4dd; /* Pale Dogwood */
+  padding: 20px;
+  border-radius: 10px;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .quiz-section {
@@ -65,9 +87,11 @@ button:hover {
 
 .genzified-section {
   margin-top: 20px;
-  background-color: #e8f5e9;
+  background-color: #bfacb5; /* Rose quartz */
   padding: 10px;
   border-radius: 8px;
+  color: #444554; /* Charcoal */
+  animation: slideUp 0.5s ease-in-out;
 }
 
 /* Responsive Design */
@@ -94,5 +118,26 @@ button:hover {
 @media (max-width: 480px) {
   .app-header h1 {
     font-size: 1.5rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }

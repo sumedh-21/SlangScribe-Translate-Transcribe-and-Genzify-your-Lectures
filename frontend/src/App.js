@@ -2,23 +2,26 @@ import React, { useState } from "react";
 import "./App.css";
 
 const languages = [
-  "Chinese", "Japanese", "Spanish", "Hindi",
-  "French", "German", "Arabic",
-  "Portuguese", "Russian"
+  "Chinese",
+  "Japanese",
+  "Spanish",
+  "Hindi",
+  "French",
+  "German",
+  "Arabic",
+  "Russian",
 ];
 
 const App = () => {
   const [file, setFile] = useState(null);
-  const [language, setLanguage] = useState("Chinese");
-  const [response, setResponse] = useState(null);
-  const [genzifiedText, setGenzifiedText] = useState("");
+  const [transcription, setTranscription] = useState("");
+  const [translation, setTranslation] = useState("");
+  const [genzifiedText, setGenZifiedText] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [status, setStatus] = useState("");
-  const [stylePrompt, setStylePrompt] = useState("cool");
+  const [language, setLanguage] = useState("Chinese");
 
   const handleFileChange = (e) => setFile(e.target.files[0]);
-
-  const handleLanguageChange = (e) => setLanguage(e.target.value);
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -32,7 +35,6 @@ const App = () => {
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("language", language);
 
     try {
       const res = await fetch("http://127.0.0.1:5000/upload", {
@@ -40,8 +42,9 @@ const App = () => {
         body: formData,
       });
       const data = await res.json();
-      setResponse(data);
-      setStatus("Processing complete! See the results below.");
+      console.log(data.transcription); // Add this line for debugging
+      setTranscription(data.transcription);
+      setStatus("Processing complete! See the transcription below.");
     } catch (error) {
       console.error("Upload failed:", error);
       setStatus("An error occurred. Please try again.");
@@ -50,7 +53,42 @@ const App = () => {
     }
   };
 
+  const handleTranslation = async () => {
+    if (!transcription) {
+      alert("Please transcribe the file first.");
+      return;
+    }
+
+    setStatus("Translating... Please wait.");
+
+    try {
+      const res = await fetch("http://127.0.0.1:5000/translate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          transcription: transcription,
+          language: language,
+        }),
+      });
+      const data = await res.json();
+      setTranslation(data.translation);
+      setStatus("Translation complete! See the result below.");
+    } catch (error) {
+      console.error("Translation failed:", error);
+      setStatus("An error occurred. Please try again.");
+    }
+  };
+
   const handleGenZify = async () => {
+    if (!transcription) {
+      alert("Please transcribe the file first.");
+      return;
+    }
+
+    setStatus("GenZifying... Please wait.");
+
     try {
       const res = await fetch("http://127.0.0.1:5000/genzify", {
         method: "POST",
@@ -58,35 +96,28 @@ const App = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          text: response.transcription,
-          style: stylePrompt,
+          text: transcription,
         }),
       });
       const data = await res.json();
-      setGenzifiedText(data.genzified_text);
+      setGenZifiedText(data.genzified_text);
+      setStatus("GenZification complete! See the result below.");
     } catch (error) {
       console.error("GenZify failed:", error);
-      alert("GenZify failed.");
+      setStatus("An error occurred. Please try again.");
     }
   };
 
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1>T4: Transcribe, Test, Translate, and Trim</h1>
+        <h1>Transcribe, Translate, And GenZify Your Lectures</h1>
       </header>
 
       <div className="upload-card">
         <h2>Upload Your Audio File</h2>
         <form onSubmit={handleUpload}>
           <input type="file" onChange={handleFileChange} accept="audio/*" />
-          <select value={language} onChange={handleLanguageChange}>
-            {languages.map((lang, index) => (
-              <option key={index} value={lang}>
-                {lang}
-              </option>
-            ))}
-          </select>
           <button type="submit" disabled={isUploading}>
             {isUploading ? "Processing..." : "Upload and Transcribe"}
           </button>
@@ -94,43 +125,32 @@ const App = () => {
 
         <p className="status-message">{status}</p>
 
-        {response && (
+        {transcription && (
           <div className="result-section">
             <h2>Transcription</h2>
-            <p>{response.transcription}</p>
+            <p>{transcription}</p>
 
-            <h2>Summary (Trim)</h2>
-            <p>{response.summary}</p>
-
-            <h2>Key Topics</h2>
-            <ul>
-              {response.topics.map((topic, index) => (
-                <li key={index}>{topic}</li>
+            <h2>Translation</h2>
+            <select
+              value={language}
+              onChange={(e) => setLanguage(e.target.value)}
+            >
+              {languages.map((lang, index) => (
+                <option key={index} value={lang}>
+                  {lang}
+                </option>
               ))}
-            </ul>
+            </select>
+            <button onClick={handleTranslation}>Translate</button>
 
-            <h2>Translation ({response.language})</h2>
-            <p>{response.translation}</p>
-
-            <h2>Quiz</h2>
-            {response.quiz.map((q, index) => (
-              <div key={index} className="quiz-section">
-                <p>{q.question}</p>
-                <ul>
-                  {q.options.map((option, i) => (
-                    <li key={i}>{option}</li>
-                  ))}
-                </ul>
+            {translation && (
+              <div>
+                <h3>Translation ({language})</h3>
+                <p>{translation}</p>
               </div>
-            ))}
+            )}
 
             <h2>GenZify Your Lecture</h2>
-            <input
-              type="text"
-              value={stylePrompt}
-              onChange={(e) => setStylePrompt(e.target.value)}
-              placeholder="Enter a style (e.g., funny, cool)"
-            />
             <button onClick={handleGenZify}>GenZify</button>
 
             {genzifiedText && (
