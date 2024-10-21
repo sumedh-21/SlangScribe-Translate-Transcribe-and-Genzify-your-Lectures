@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 import whisper
@@ -7,7 +7,6 @@ from transformers import pipeline
 import spacy
 from nltk.tokenize import sent_tokenize
 import torch
-from huggingface_hub import hf_hub_download
 import nltk
 nltk.download('punkt')
 
@@ -16,12 +15,6 @@ from dotenv import load_dotenv
 from openai import OpenAI
 
 load_dotenv()
-
-
-os.environ["HF_HOME"] = "E:\\Workspace\\Huggingface\\Models"
-os.environ["TRANSFORMERS_CACHE"] = "E:\\Workspace\\Huggingface\\Models"
-
-
 
 app = Flask(__name__)
 CORS(app)
@@ -34,7 +27,6 @@ else:
 # Load models
 whisper_model = whisper.load_model("tiny", device=device)
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn",  device=device)
-# genzify_pipeline = pipeline("text-generation", model="EleutherAI/gpt-j-6B", cache_dir="E:\\Workspace\\Huggingface\\Models", device=device)
 nlp = spacy.load("en_core_web_sm")
 
 # Translation models
