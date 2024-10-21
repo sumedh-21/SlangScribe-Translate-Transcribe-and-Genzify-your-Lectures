@@ -29,3 +29,6 @@ backend/transcripts/
 # Ignore lock files
 package-lock.json
 yarn.lock
+
+# Test coverage reports
+coverage/
