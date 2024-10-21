@@ -10,8 +10,8 @@ SlangScribe is a web application designed to transcribe audio files, summarize t
   <p>Click the image above to watch the demo on YouTube.</p>
 </div>
 
-## Features
-* Audio Transcription: Uses OpenAI's Whisper model to convert audio files (mp3, mp4, mp4a or wav format for best use) to text.
+# Features
+* Audio Transcription: Uses OpenAI's Whisper model to convert audio files (.mp3, .mp4, .mp4a or .wav format for best use) to text.
 * Translation: Translates the text into multiple languages, including Hindi, Chinese, Japanese, Spanish, French, and more.
 * Summarization: Summarizes the transcription using the Hugging Face summarization pipeline.
 * Gen-Z Slang Conversion: Converts the summarized text into a Gen-Z style summary using OpenAI GPT-4 API.
@@ -58,31 +58,35 @@ Run the frontend:
 npm start
 ```
 
-# Endpoints
-```/upload ```
-Request:
+# API Endpoints
 
-* file: The audio file to be transcribed.
-* language: Language to translate the transcription into (optional).
+## `/upload`
+**Request:**  
+- **file**: Audio file to transcribe.  
+- **language**: (Optional) Target translation language.  
 
-Response:
-* Returns the transcription and translation.
+**Response:**  
+- Transcription and optional translation result.
 
-``` /translate  ```
- Request:
+---
 
-* transcription: Text to be translated.
-* language: Target language for translation.
+## `/translate`
+**Request:**  
+- **transcription**: Text to translate.  
+- **language**: Target language.
 
-Response:
-* Translated text in the specified language.
-```/genzify ```
+**Response:**  
+- Translated text.
 
-Request:
-* text: The transcription text to be converted to Gen-Z slang.
+---
 
-Response:
-* The transcription in Gen-Z slang.
+## `/genzify`
+**Request:**  
+- **text**: Text to convert into Gen-Z slang.  
+
+**Response:**  
+- Gen-Z slang version of the text.
+
 
 # License
 * This project is licensed under the MIT License. See the LICENSE file for details.
