@@ -1,7 +1,17 @@
 # SlangScribe: Transcribe,Translate and Genzify Your Lectures
 A modern tool for converting lectures and educational content into easy-to-understand formats and Gen-Z slang.
 
-[![SlangScribe Video](https://img.youtube.com/vi/tu6YVaFL6Ps/0.jpg)](https://youtu.be/tu6YVaFL6Ps)
+<div align="center">
+  <a href="https://youtu.be/tu6YVaFL6Ps">
+    <img src="https://img.youtube.com/vi/tu6YVaFL6Ps/0.jpg" alt="SlangScribe Video" style="width:70%, height:50%;">
+  </a>
+  <br>
+  <p>Click the image above to watch the demo on YouTube.</p>
+</div>
+
+## Overview
+SlangScribe is a web application designed to transcribe audio files, summarize the transcriptions, translate them into multiple languages, and even "Genzify" the content into Gen-Z slang for added fun! It uses OpenAI's GPT-4 for high-quality text generation and summarization, Whisper for transcription, and Hugging Face pipelines for translation.
+
 
 ## Overview
 SlangScribe is a web application designed to transcribe audio files, summarize the transcriptions, translate them into multiple languages, and even "Genzify" the content into Gen-Z slang for added fun! It uses OpenAI's GPT-4 for high-quality text generation and summarization, Whisper for transcription, and Hugging Face pipelines for translation.
